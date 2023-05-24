@@ -59,7 +59,11 @@ async function handle(
 
   try {
     const api = await requestOpenai(req);
-
+    if (api.status == 401) {
+      return NextResponse.json(authResult, {
+        status: 401,
+      });
+    }
     const contentType = api.headers.get("Content-Type") ?? "";
 
     // streaming response

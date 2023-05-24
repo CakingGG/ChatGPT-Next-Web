@@ -26,7 +26,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { useMobileScreen } from "../utils";
 import dynamic from "next/dynamic";
-import { showToast } from "./ui-lib";
+import { showToast, showModal } from "./ui-lib";
 
 const ChatList = dynamic(async () => (await import("./chat-list")).ChatList, {
   loading: () => null,
@@ -174,9 +174,23 @@ export function SideBar(props: { className?: string }) {
             </Link>
           </div>
           <div className={styles["sidebar-action"]}>
-            {/* <a href={REPO_URL} target="_blank">
-              <IconButton icon={<GithubIcon />} shadow />
-            </a> */}
+            <IconButton
+              icon={<GithubIcon />}
+              shadow
+              title={Locale.Chat.Actions.Export}
+              onClick={() => {
+                showModal({
+                  title: "加群获取免费额度",
+                  children: (
+                    <div className="markdown-body">
+                      <pre className={styles["export-content"]}>
+                        QQ群：123123
+                      </pre>
+                    </div>
+                  ),
+                });
+              }}
+            />
           </div>
         </div>
         <div>
